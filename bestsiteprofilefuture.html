@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Sterling | Building Future Realities</title>
+    <meta name="description" content="Solopreneur, R&D chemist, and creative technologist building across neuroscience, AI, music, biotech, and design.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ff;
+            --primary-dark: #0cc;
+            --secondary: #fff;
+            --dark: #0a0a0f;
+            --darker: #050508;
+            --card-bg: rgba(20, 20, 30, 0.8);
+            --glow: 0 0 10px rgba(0, 255, 255, 0.7);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--darker), var(--dark));
+            color: var(--secondary);
+            font-family: 'Exo 2', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(10, 10, 15, 0.9), rgba(10, 10, 15, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="rgba(0, 255, 255, 0.05)" stroke-width="0.5"/></svg>');
+            z-index: -1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover::after {
+            transform: scaleX(1);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 400;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: var(--glow);
+        }
+
+        .tagline {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+        }
+
+        .hero-img {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), #5500ff);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.5);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 5px solid var(--card-bg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-img::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80') center/cover;
+            border-radius: 50%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--primary);
+            transition: width 0.5s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--dark);
+            box-shadow: var(--glow);
+        }
+
+        .btn:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--dark);
+            margin-right: 1rem;
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .section {
+            padding: 8rem 10%;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: var(--primary);
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .preview-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .preview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .newsletter {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 3rem;
+            margin-top: 5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .newsletter h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .newsletter p {
+            color: #aaa;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-input {
+            flex: 1;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            border-radius: 50px 0 0 50px;
+            color: var(--secondary);
+            font-size: 1rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .form-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .form-btn {
+            padding: 0 2rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 0 50px 50px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .form-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            width: 50%;
+            padding: 1.5rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .portfolio-img {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), #5500ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 3rem;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .merch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .merch-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .merch-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--glow);
+            border-color: var(--primary);
+        }
+
+        .merch-img {
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 5rem;
+            color: var(--primary);
+        }
+
+        .merch-content {
+            padding: 1.5rem;
+        }
+
+        .merch-price {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin: 1rem 0;
+            font-weight: 700;
+        }
+
+        footer {
+            background: rgba(5, 5, 10, 0.9);
+            padding: 3rem 10%;
+            border-top: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            position: relative;
+        }
+
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: var(--dark);
+            transform: translateY(-5px);
+            box-shadow: var(--glow);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(-50%) translateX(0); }
+            50% { transform: translateY(-55%) translateX(10px); }
+            100% { transform: translateY(-50%) translateX(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(0, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-img {
+                right: 5%;
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding-top: 8rem;
+            }
+
+            .hero-content {
+                margin-bottom: 3rem;
+            }
+
+            .hero-img {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                margin-top: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .tagline {
+                font-size: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: calc(100% - 60px);
+                left: 0 !important;
+                margin-left: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav ul {
+                position: fixed;
+                top: 80px;
+                right: -100%;
+                flex-direction: column;
+                background: var(--card-bg);
+                width: 70%;
+                height: calc(100vh - 80px);
+                padding: 2rem;
+                transition: var(--transition);
+                border-left: 1px solid rgba(0, 255, 255, 0.1);
+            }
+
+            nav ul.active {
+                right: 0;
+            }
+
+            .section {
+                padding: 5rem 7%;
+            }
+
+            .form-group {
+                flex-direction: column;
+            }
+
+            .form-input {
+                border-radius: 50px;
+                margin-bottom: 1rem;
+            }
+
+            .form-btn {
+                border-radius: 50px;
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .tagline {
+                font-size: 1.3rem;
+            }
+
+            .hero-img {
+                width: 250px;
+                height: 250px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    
+    <header>
+        <a href="#" class="logo">Alex Sterling</a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#rxfx-labs">RxFX Labs</a></li>
+                <li><a href="#rxfx-studios">RxFX Studios</a></li>
+                <li><a href="#merch">Merch</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#newsletter">Newsletter</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Alex Sterling</h1>
+                <div class="tagline">Building Future Realities — From Molecules to Music to AI</div>
+                <p>Solopreneur building a portfolio of biotech, AI, and multimedia ventures. Bridging the gap between scientific innovation and creative expression.</p>
+                <div class="hero-btns">
+                    <a href="#portfolio" class="btn btn-primary pulse">View Projects</a>
+                    <a href="#about" class="btn">Learn More</a>
+                </div>
+            </div>
+            <div class="hero-img"></div>
+        </section>
+
+        <section id="previews" class="section">
+            <h2 class="section-title">Venture Portfolio</h2>
+            <div class="preview-grid">
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">RxFX Labs</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Biotech & edtech innovations. Developing NutriChem.AI, SmartClaimRx, and CNS research platforms.</p>
+                        <a href="#rxfx-labs" class="btn" style="margin-top: 1rem;">Explore Labs</a>
+                    </div>
+                </div>
+                
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">RxFX Studios</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Multimedia production - AI-generated music, videos, animated characters, and immersive experiences.</p>
+                        <a href="#rxfx-studios" class="btn" style="margin-top: 1rem;">Enter Studios</a>
+                    </div>
+                </div>
+                
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">Latest Blog</div>
+                    </div>
+                    <div class="card-body">
+                        <p>"The Neuroscience of Creativity: How AI is Expanding Human Imagination"</p>
+                        <a href="#blog" class="btn" style="margin-top: 1rem;">Read Article</a>
+                    </div>
+                </div>
+                
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">New Merch</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Limited edition apparel and supplements. Designed for innovators and boundary-pushers.</p>
+                        <a href="#merch" class="btn" style="margin-top: 1rem;">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="newsletter">
+                <h3>Join the Innovation Journey</h3>
+                <p>Follow the journey. One email a week. No spam.</p>
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Your best email">
+                    <button class="form-btn">Subscribe</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="section" style="background: rgba(10, 10, 15, 0.7);">
+            <h2 class="section-title">About Me</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2012-2016</div>
+                    <h3>R&D Chemist</h3>
+                    <p>Developed novel pharmaceutical compounds with focus on CNS applications. Published 5 research papers.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2017-2019</div>
+                    <h3>AI Research & Development</h3>
+                    <p>Founded first AI startup focusing on drug discovery algorithms. Acquired by major pharma company.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">2020-Present</div>
+                    <h3>Creative Technologist</h3>
+                    <p>Launched RxFX Labs & Studios to explore intersections of neuroscience, AI, and creative expression.</p>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-date">Featured In</div>
+                    <p>TechCrunch, Wired, Scientific American, Future of Life Institute Podcast, NeuroTechX Conference</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2 class="section-title">Portfolio</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-title">NutriChem.AI</div>
+                        <p>AI platform for personalized nutrition and supplement formulations based on biochemical markers.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-title">SmartClaimRx</div>
+                        <p>Blockchain solution for pharmaceutical supply chain transparency and automated insurance claims.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">View Project</a>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-img">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-title">Messi FanBot</div>
+                        <p>AI companion that generates personalized football content, training insights, and match analyses.</p>
+                        <a href="#" class="btn" style="margin-top: 1rem;">View Project</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rxfx-labs" class="section" style="background: rgba(10, 10, 15, 0.7);">
+            <h2 class="section-title">RxFX Labs</h2>
+            <p style="max-width: 800px; margin-bottom: 3rem; font-size: 1.2rem;">
+                Where biotechnology meets artificial intelligence. Our lab focuses on developing solutions at the intersection of chemistry, neuroscience, and machine learning.
+            </p>
+            
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #00ccff, #0066ff);">
+                        <i class="fas fa-vial"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-title">NeuroSynth</div>
+                        <p>AI-driven platform for predicting neurological drug interactions and side effects.</p>
+                    </div>
+                </div>
+                
+                <div class="portfolio-item">
+                    <div class="portfolio-img" style="background: linear-gradient(45deg, #00ff99, #009933);">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <div class="portfolio-title">ChemEd AI</div>
+                        <p>Interactive education platform that personalizes chemistry learning using adaptive AI.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="rxfx-studios" class="section">
+            <h2 class="section-title">RxFX Studios</h2>
+            <p style="max-width: 800px; margin-bottom: 3rem; font-size: 1.2rem;">
+                Creative expression through technology. We produce AI-generated music, videos, digital art, and immersive experiences.
+            </p>
+            
+            <div class="preview-grid">
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">Suno Music</div>
+                    </div>
+                    <div class="card-body">
+                        <p>AI-generated music compositions blending classical structures with futuristic soundscapes.</p>
+                        <div style="margin: 1.5rem 0; height: 150px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                            <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--primary);"></i>
+                        </div>
+                        <a href="#" class="btn">Listen Now</a>
+                    </div>
+                </div>
+                
+                <div class="preview-card">
+                    <div class="card-header">
+                        <div class="card-title">Sora Videos</div>
+                    </div>
+                    <div class="card-body">
+                        <p>Cinematic AI-generated short films exploring abstract concepts of consciousness.</p>
+                        <div style="margin: 1.5rem 0; height: 150px; background: rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; border-radius: 10px;">
+                            <i class="fas fa-play-circle" style="font-size: 3rem; color: var(--primary);"></i>
+                        </div>
+                        <a href="#" class="btn">Watch Now</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="merch" class="section" style="background: rgba(10, 10, 15, 0.7);">
+            <h2 class="section-title">Merch</h2>
+            <p style="max-width: 800px; margin-bottom: 3rem; font-size: 1.2rem;">
+                Limited edition apparel and supplements designed for innovators, creators, and boundary-pushers.
+            </p>
+            
+            <div class="merch-grid">
+                <div class="merch-item">
+                    <div class="merch-img">
+                        <i class="fas fa-tshirt"></i>
+                    </div>
+                    <div class="merch-content">
+                        <h3>NeuroHacker Tee</h3>
+                        <p>Premium cotton with circuit-inspired design</p>
+                        <div class="merch-price">$39.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <div class="merch-item">
+                    <div class="merch-img">
+                        <i class="fas fa-capsules"></i>
+                    </div>
+                    <div class="merch-content">
+                        <h3>Focus Formula</h3>
+                        <p>Nootropic blend for enhanced cognition</p>
+                        <div class="merch-price">$59.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+                
+                <div class="merch-item">
+                    <div class="merch-img">
+                        <i class="fas fa-mug-hot"></i>
+                    </div>
+                    <div class="merch-content">
+                        <h3>Quantum Mug</h3>
+                        <p>Double-walled with temperature display</p>
+                        <div class="merch-price">$29.99</div>
+                        <a href="#" class="btn">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Alex Sterling</h3>
+                <p>Building future realities at the intersection of science, technology, and creativity.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Connect</h3>
+                <p>Interested in collaboration or just want to say hello?</p>
+                <a href="mailto:alex@rx-fx.io" class="btn" style="margin-top: 1rem;">Let's Connect</a>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Newsletter</h3>
+                <p>Get updates on new projects and insights.</p>
+                <div class="form-group" style="margin-top: 1rem;">
+                    <input type="email" class="form-input" placeholder="Your email">
+                    <button class="form-btn">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 Alex Sterling. All rights reserved. RxFX Labs & Studios are trademarks.
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navMenu = document.querySelector('nav ul');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-bars');
+            mobileMenuBtn.querySelector('i').classList.toggle('fa-times');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                navMenu.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Add animation when elements come into view
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.preview-card, .timeline-item, .portfolio-item, .merch-item').forEach(item => {
+            observer.observe(item);
+        });
+    </script>
+</body>
+</html>
